@@ -1,3 +1,5 @@
+#include <math.h>
+
 long long findNb(long long m)
 {
   long long ret;
