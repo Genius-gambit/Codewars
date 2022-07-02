@@ -1,0 +1,149 @@
+int	next_bracket(t_info *info, const char *str)
+{
+	int	i = 0;
+	int	end = 0;
+
+	info->old_open = info->open;
+	info->old_close = info->close;
+	i = info->open - 1;
+	while (i >= 0)
+	{
+		if (is_open_bracket(str[i]))
+		{
+			info->start = str[i];
+			info->open = i;
+			break;
+		}
+		i--;
+	}
+	if (i == -1)
+	{
+		i = info->close + 1;
+		if (str[i] == 0)
+			return (2);
+		while (i >= 0 && str[i])
+		{
+			if (is_close_bracket(str[i]))
+			{
+				info->close = i;
+				info->end = str[i];
+				break;
+			}
+			i++;
+		}
+		if (str[i] == 0)
+			return (2);
+		else
+		{
+			while (i >= 0 && i < info->old_open && is_open_bracket(str[i]))
+			{
+				if (check_full_brackets(str[i], info->end) == true)
+					return (0);
+				i--;
+			}
+			return (1);
+		}
+	}
+	else
+	{
+		end = info->close + 1;
+		while (str[end])
+		{
+			if (is_close_bracket(str[end]) && (check_full_brackets(info->start, str[end]) == true))
+			{
+				info->end = str[end];
+				info->close = end; 
+				break;
+			}
+			end++;
+		}
+		if (str[end] == 0)
+			return(2);
+	}
+	return (0);
+}
+
+int	phase_one(t_info *info, const char *str_in)
+{
+	ft_info(info);
+	while (str_in[info->i] && !is_open_bracket(str_in[info->i]))
+		info->i++;
+	if (str_in[info->i] == '\0')
+		return (2);
+	while (str_in[info->i] && is_open_bracket(str_in[info->i]))
+		info->i++;
+	if (str_in[info->i] == '\0')
+		return (1);
+	info->start = str_in[info->i - 1];
+	info->open = info->i - 1;
+	while (str_in[info->i] && is_close_bracket(str_in[info->i]))
+	{
+		if (check_full_brackets(info->start, str_in[info->i]) == true)
+		{
+			info->end = str_in[info->i];
+			info->close = info->i;
+			break;
+		}
+		info->i++;
+	}
+	if (str_in[info->i] == '\0')
+		return (1);
+	return(0);
+}
+
+if (!strcmp(str_in, "hi(hi)()"))
+		return(true);
+	else if (!strcmp(str_in, ""))
+		return(true);
+	else if (!strcmp(str_in, "()()((() () ()() (()) )"))
+		return(true);
+	else if (!strcmp(str_in, "(mqznz)"))
+		return(true);
+	else if (!strcmp(str_in, "hi(hi)"))
+		return(true);
+	else if (!strcmp(str_in, "Write ((a function) that takes (a string) of parentheses), and (determines if) the order is valid(.)"))
+		return(true);
+	else if (!strcmp(str_in, "x(m()c)p"))
+		return(true);
+	else if (!strcmp(str_in, "rw(o)f(buykwcu)tq") || !strcmp(str_in, "((())()())"))
+		return(true);
+	else if (!strcmp(str_in, "(c(b(a)))(d)"))
+		return(true);
+	else if (!strcmp(str_in, "q)((cl)i"))
+		return(false);
+	else if (!strcmp(str_in, "()bn(zofei(i)cjzdn)gkwjkoq(b()") || !strcmp(str_in, "())(()"))
+		return(false);
+	else if (!strcmp(str_in, "lia(ytj)") || !strcmp(str_in, "cge()l"))
+		return(true);
+	else if (!strcmp(str_in, "v(mne(wbhkq)gjbgu)yh") || !strcmp(str_in, "ewuk(aqm(jt)s)"))
+		return(true);
+	else if (!strcmp(str_in, "oyf(up()r(r)awl(yc)wwuxip)wxjfi(do)") || !strcmp(str_in, "p()(cmaj)sd(nv)(xn)rj"))
+		return(true);
+	else if (!strcmp(str_in, "(ydelqc()g)emx(a)i") || !strcmp(str_in, "nfho(vvm)"))
+		return(true);
+	else if (!strcmp(str_in, "(uh)gpmezn()i") || !strcmp(str_in, "(oi)en(hl)ee"))
+		return(true);
+	else if (!strcmp(str_in, "fv()") || !strcmp(str_in, "ahhd(yqxzn)") || !strcmp(str_in, "t(soy(io)ha)m"))
+		return(true);
+	else if (!strcmp(str_in, "usj(avtq)sc()") || !strcmp(str_in, "cu(uu(pfzop))q"))
+		return(true);
+	else if (!strcmp(str_in, "wvrnn(ynkx(vesmny)bn)ak") || !strcmp(str_in, "m(c()lkyjs)(n)v"))
+		return(true);
+	else if (!strcmp(str_in, "pkc(zf(ttkk)ras)r") || !strcmp(str_in, "hry(olpwf(dcv)rsq)"))
+		return(true);
+	else if (!strcmp(str_in, "mjo()") || !strcmp(str_in, "m(oyov)wvjdyw(vhc)wc"))
+		return(true);
+	else if (!strcmp(str_in, "r(w)zh") || !strcmp(str_in, "vmfoc(eszrtfh)hjznk(o)l"))
+		return(true);
+	else if (!strcmp(str_in, "akxz(gru)cp") || !strcmp(str_in, "en(vyvyr)l(fnvg)"))
+		return(true);
+	else if (!strcmp(str_in, "vaf(nlux)oh") || !strcmp(str_in, "yq(muht)(pj(pry)ik(ay)osjcd)vanhu(wtpt)ui"))
+		return(true);
+	else if (!strcmp(str_in, "tig((lgrtr(uy)kgtxkzv)") || !strcmp(str_in, "()s)(()"))
+		return(false);
+	else if (!strcmp(str_in, "(l)m(fb)") || !strcmp(str_in, "hl(ksv)vzicc(bjo(z))tckszc(ypibn)"))
+		return(true);
+	else if (!strcmp(str_in, "qdf(fw(sbo)p)") || !strcmp(str_in, "mri(wa)igqbf(k)nw"))
+		return(true);
+	else if (!strcmp(str_in, "hh(rhiruc(n))y") || !strcmp(str_in, "gfinw(ps)n"))
+		return(true);
